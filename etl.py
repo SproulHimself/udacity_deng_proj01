@@ -47,9 +47,9 @@ def process_log_file(cur, filepath):
                      t.iloc[i].dt.weekday.values[0])
         time_dict = {k:v for k, v in list(zip(column_labels, time_data))}
         lods.append(time_dict)
-#     time_data = 
-#     column_labels = 
+
     time_df = pd.DataFrame(lods)
+    time_df = time_df[['start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday']]
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))

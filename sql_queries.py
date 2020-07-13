@@ -17,16 +17,16 @@ user_table_create = ("""CREATE TABLE IF NOT EXISTS users (user_id TEXT, first_na
                                                           gender TEXT, level TEXT);
 """) 
 
-song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (tid SERIAL PRIMARY KEY, song_id TEXT, title TEXT, 
-                                                          artist_id TEXT, year INT, duration NUMERIC);
+song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (song_id TEXT, title TEXT, artist_id TEXT, 
+                                                          year INT, duration NUMERIC);
 """)
 
-artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (tid SERIAL PRIMARY KEY, artist_id TEXT, name TEXT, 
-                                                              location TEXT, latitude NUMERIC, longitude NUMERIC);
+artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (artist_id TEXT, name TEXT, location TEXT, 
+                                                              latitude NUMERIC, longitude NUMERIC);
 """)
 
-time_table_create = ("""CREATE TABLE IF NOT EXISTS time (timestamp BIGINT, hour INT, day INT, week INT, month INT, 
-                                                         year INT, weekday INT);
+time_table_create = ("""CREATE TABLE IF NOT EXISTS time (timestamp BIGINT, hour INT, day INT, week INT,  
+                                                         month INT, year INT, weekday INT);
 """)
 
 
