@@ -36,7 +36,7 @@ def process_log_file(cur, filepath):
     
     # insert time data records
     column_labels = ['start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday']
-    lods = []
+    lods = [] #lods == list of dicts
     for i in range(len(t)):
         time_data = (t.iloc[i].dt.time.values[0].minute + round(t.iloc[i].dt.time.values[0].second/60, 3), 
                      t.iloc[i].dt.hour.values[0], 
