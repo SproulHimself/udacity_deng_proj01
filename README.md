@@ -40,7 +40,7 @@ The steps for processing the "log" data were:
 
 
 ## Example Queries
-After completing the project, all of the queries pass the tests from the provided `tests.ipynb`. Below, I have provided three example queries. There is only one song from the songs data that matches up with the log data, so I chose that song to use for the exmaples:
+After completing the project, all of the queries pass the tests from the provided `tests.ipynb`. Below, I have provided three example queries. There is only one song from the songs data that matches up with the log data, so I chose that song to use for the examples:
 
 <img width="972" alt="Screen Shot 2020-07-17 at 4 45 02 PM" src="https://user-images.githubusercontent.com/34200538/87829358-ef88a180-c84c-11ea-808f-9f1eebdf306b.png">
 
