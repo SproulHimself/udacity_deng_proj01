@@ -16,6 +16,10 @@ The schema for this project consists of five different tables which contain data
 
 With the second data set, `time` and `users` dimensional tables were created, as well as a fact table for `songplays`. `timestamp`, `hour`, `day`, `week`, `month`, `year`, and `weekday` are the values stored in the `time` table while `user_id`, `first_name`, `last_name`, `gender`, and `level` are the values stored in the `users` table. The `songplays` table was created with the `timestamp`, `user_id`, `level`, `song_id`, `artist_id`, `session_id`, `location`, and `user_agent` values. Lastly, I created `songplays_id` as a `SERIAL PRIMARY KEY` to gain some practice with implementing other Postgres data types.
 
+### Entity Relationship Diagram
+
+<img width="781" alt="Screen Shot 2020-07-17 at 7 40 47 PM" src="https://user-images.githubusercontent.com/34200538/87838602-86f9ee80-c865-11ea-87f5-6086ee67a410.png">
+
 
 
 ## ETL pipeline
