@@ -7,6 +7,13 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """ 
+    - Opens individual SONG data file and sets attributes.  
+    
+    - Extract appropriate songs_table data and inserts into songs_table.  
+    
+    - Extract appropriate artists_table data and inserts into artists_table.      
+    """    
     # open song file
     df = pd.read_json(filepath, typ='series')
     df.index = ['num_songs', 'artist_id', 'latitude', 'longitude', 'location', 
@@ -14,16 +21,23 @@ def process_song_file(cur, filepath):
 
     # insert song record
     sd_vals = ['song_id', 'title', 'artist_id', 'year', 'duration']
-    song_data = [df.loc[x] for x in sd_vals]
-    cur.execute(song_table_insert, song_data)
+    songs_data = [df.loc[x] for x in sd_vals]
+    cur.execute(songs_table_insert, songs_data)
     
     # insert artist record
     ad_vals = ['artist_id', 'name', 'location', 'latitude', 'longitude']
-    artist_data = [df.loc[x] for x in ad_vals]
-    cur.execute(artist_table_insert, artist_data)
+    artists_data = [df.loc[x] for x in ad_vals]
+    cur.execute(artists_table_insert, artists_data)
 
 
 def process_log_file(cur, filepath):
+    """ 
+    - Opens individual LOG data file and filters by NextSong attribute.  
+    
+    - Extract appropriate songs_table data and inserts into songs_table.  
+    
+    - Extract appropriate artists_table data and inserts into artists_table.      
+    """     
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -38,7 +52,8 @@ def process_log_file(cur, filepath):
     column_labels = ['start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday']
     lods = [] #lods == list of dicts
     for i in range(len(t)):
-        time_data = (t.iloc[i].dt.time.values[0].minute + round(t.iloc[i].dt.time.values[0].second/60, 3), 
+        time_data = (t.iloc[i].dt.time.values[0].minute + 
+                     round(t.iloc[i].dt.time.values[0].second/60, 3), 
                      t.iloc[i].dt.hour.values[0], 
                      t.iloc[i].dt.day.values[0], 
                      t.iloc[i].dt.week.values[0], 
@@ -55,11 +70,11 @@ def process_log_file(cur, filepath):
         cur.execute(time_table_insert, list(row))
 
     # load user table
-    user_df = df[['userId', 'firstName', 'lastName', 'gender', 'level']]
+    users_df = df[['userId', 'firstName', 'lastName', 'gender', 'level']]
 
     # insert user records
-    for i, row in user_df.iterrows():
-        cur.execute(user_table_insert, row)
+    for i, row in users_df.iterrows():
+        cur.execute(users_table_insert, row)
 
     # insert songplay records
     for index, row in df.iterrows():
@@ -74,11 +89,21 @@ def process_log_file(cur, filepath):
             artist_id, song_id = None, None
 
         # insert songplay record
-        plays_data = (row.ts, int(row.userId), row.level, song_id, artist_id, row.sessionId, row.location, row.userAgent)
-        cur.execute(play_table_insert, plays_data)
+        songplays_data = (row.ts, int(row.userId), row.level, song_id, artist_id, 
+                          row.sessionId, row.location, row.userAgent)
+        cur.execute(songplays_table_insert, songplays_data)
 
 
 def process_data(cur, conn, filepath, func):
+    """ 
+    - Establishes connection with the sparkify database and sets cursor to it.  
+    
+    - Uses process data function to process the SONG data files.  
+    
+    - Uses process data function to process the LOG data files.  
+    
+    - Finally, closes the connection. 
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -98,6 +123,15 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    """ 
+    - Establishes connection with the sparkify database and sets cursor to it.  
+    
+    - Uses process data function to process the SONG data files.  
+    
+    - Uses process data function to process the LOG data files.  
+    
+    - Finally, closes the connection. 
+    """  
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 
