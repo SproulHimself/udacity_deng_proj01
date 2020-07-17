@@ -22,7 +22,7 @@ With the second data set, `time` and `users` dimensional tables were created, as
 
 Processing the data for the `songs` and `artists` dimension tables was fairly straightforward as each JSON file only contained information for one song. The steps for processing the "song" data were:
 - Open the file
-- Set the column names *note: because I read the JSON file as a series, I set the index instead of column names
+- Set the column names *note: because I read the JSON file as a series, I set the index instead of column names*
 - Insert appropriate `songs_table` values
 - Insert appropriate `artists_table` values
 
